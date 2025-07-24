@@ -56,7 +56,7 @@ export default function Index() {
 const resources = [
   {
     href: "https://remix.run/start/quickstart",
-    text: "Lab01 : Default Captain app",
+    text: "Lab01 : 08/07/68)",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -75,9 +75,10 @@ const resources = [
       </svg>
     ),
   },
+  
   {
     href: "http://localhost:5173/Captain-lab02",
-    text: "Lab02 : First component",
+    text: "(Lab02 : 17/07/68)",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -97,8 +98,8 @@ const resources = [
     ),
   },
   {
-    href: "https://remix.run/docs",
-    text: "Lab03 : Profile component",
+    href: "http://localhost:5173/Captain-lab03",
+    text: "Lab03 : (24/07/68)",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
