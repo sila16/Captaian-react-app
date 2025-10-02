@@ -1,11 +1,63 @@
 import express from 'express';
 import cors from 'cors';
+import admin from 'firebase-admin';
+import serviceAccount from './firebase/webprog-1004-0-firebase-adminsdk-fbsvc-9e28e40abd.json' with { type: 'json' };
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
+
+const db = admin.firestore();
 
 const app = express()
 const port = 3000
 
 app.use(cors());
 app.use(express.json());
+
+async function fetchDataDB(){
+    const results = [];
+    const booksRef = db.collection('Books');
+    const booksSnap = await booksRef.get();
+    booksSnap.forEach(doc => {
+        results.push({
+            id: doc.id,
+            ...doc.data()
+        });
+    })
+    return results;
+}
+
+app.get('/api/getBooksFromDB', (req, res) => {
+    res.set('Content-Type', 'application/json');
+    fetchDataDB().then(jsonData => {
+        res.json(jsonData);
+    }).catch(error => {
+        res.json(error);
+    });
+});
+
+// http://localhost:3000/api/insert --> Add a new book
+async function addBook(newBook) {
+  const newBookRef = db.collection('..................').doc();
+  const docRef = db.collection('..................').doc(newBookRef.id);
+  await docRef.set(newBook);
+  console.log('Book added!');
+}
+ 
+//app.post('/api/insert', (req, res) => {
+  //try {
+    //const { .................., .................. } = req.body;
+    //console.log(.................., ..................);
+    //const newBook = { id: String(books.length + 1), .................., .................. };
+    // books.push(newBook);
+    //addBook(newBook);
+    //res.status(201).json({ success: true, message: 'Form submitted successfully.' });
+  //} catch (err) {
+    //res.status(500).json({ success: false, message: err.message });
+  //}
+//})
+
 
 let books = [ 
     {id: 1, title: 'Web Tecnology', author: 'captain 1 '},
